@@ -56,16 +56,25 @@ class UserProject(models.Model):
     @classmethod
     def all_posts(cls):
         """
-        Method to get all posts
+        Method to get all posts sorted by date
         :return: all posts
         """
-        return cls.objects.all()
+        return cls.objects.all().order_by('-date')
 
     def save_post(self):
         self.save()
 
     def __str__(self):
         return f'Title: {self.title}'
+
+    @classmethod
+    def random_post(cls):
+        """
+        return random post
+        :return:
+        """
+        return cls.objects.order_by('?').first()
+
 
 
 class ProjectRating(models.Model):
