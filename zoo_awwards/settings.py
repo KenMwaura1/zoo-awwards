@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'z_awwards.apps.ZAwwardsConfig',
     'cloudinary',
-    'crispy_forms'
+    'crispy_forms',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [
