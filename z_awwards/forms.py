@@ -6,7 +6,7 @@ from django import forms
 from z_awwards.models import UserProject, ProjectRating
 
 
-class SignupForm(UserCreationForm):
+class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
