@@ -31,6 +31,29 @@ def home(request):
         return render(request, 'z_awwards/home.html', {'all_projects': all_projects, 'random_project': random_project})
 
 
+def register(request):
+    """
+    Register page
+    :param request:
+    :return:
+    """
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+        else:
+            form = RegisterForm()
+        return render(request, 'django_registration/registration_form.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+def profile(request, username):
+    return render(request, 'z_awwards/profile.html')
 
 
 def user_profile(request):
