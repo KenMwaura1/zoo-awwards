@@ -100,3 +100,46 @@ def edit_profile(request, username):
     }
     return render(request, 'z_awwards/edit_profile.html', params)
 
+
+@login_required(login_url='/login/')
+def single_project(request, project):
+    """
+    get single_project
+    :param request:
+    :return:
+    """
+    project = UserProject.objects.get(title=project)
+    project_ratings = ProjectRating.objects.filter(user=request.user, project=project).first()
+    rating_status = project_ratings is not None
+    if request.method == "POST":
+        form = ProjectRatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.user = request.user
+            rating.project = project
+            rating.save()
+            project_ratings = ProjectRating.objects.filter(project=project).first()
+            design_score = [d.design for d in project_ratings]
+            design_average = sum(design_score) / len(design_score)
+            usability_score = [u.usability for u in project_ratings]
+            usability_average = sum(usability_score) / len(usability_score)
+            content_score = [c.content for c in project_ratings]
+            content_average = sum(content_score) / len(content_score)
+
+            total_score = (design_average + usability_average + content_average) / 3
+            print(total_score)
+            rating.design_average = round(design_average, 2)
+            rating.usability_average = round(usability_average, 2)
+            rating.content_average = round(content_average, 2)
+            rating.total_score = round(total_score, 2)
+            rating.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = ProjectRatingForm()
+    params = {
+        'project': project,
+        'form': form,
+        'rating_status': rating_status,
+    }
+    return render(request, 'z_awwards/single_project.html', params)
+
