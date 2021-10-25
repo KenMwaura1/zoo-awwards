@@ -11,7 +11,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="userprofile", on_delete=models.CASCADE)
     username = models.TextField(max_length=150)
     bio = models.TextField(max_length=500, blank=True, default="default bio")
-    location = models.CharField(max_length=30, blank=True)
+    location = models.CharField(max_length=30, blank=True, default="Nairobi, KE")
     date_joined = models.DateField(auto_now_add=True, blank=True)
     profile_pic = models.ImageField(upload_to='images/profile_pic/', blank=True)
     contact_email = models.EmailField(max_length=100, blank=True)
@@ -68,7 +68,7 @@ class UserProject(models.Model):
         return f'Title: {self.title}'
 
     @classmethod
-    def random_post(cls):
+    def random_project(cls):
         """
         return random post
         :return:
