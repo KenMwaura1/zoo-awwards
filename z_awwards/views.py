@@ -81,7 +81,8 @@ def user_projects(request, username):
     if request.user == user_profile:
         return redirect('profile', username=request.user.username)
     params = {'user_profile': user_profile}
-    return render(request, 'z_awwards/user_projects.html', params)
+    user_projects = UserProject.objects.filter(user=user_profile)
+    return render(request, 'z_awwards/user_projects.html', {'user_projects': user_projects, 'user_profile': user_profile})
 
 
 @login_required(login_url='/login/')

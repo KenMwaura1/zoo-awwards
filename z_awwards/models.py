@@ -12,7 +12,7 @@ class UserProfile(models.Model):
     username = models.TextField(max_length=150)
     bio = models.TextField(max_length=500, blank=True, default="default bio")
     location = models.CharField(max_length=30, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
+    date_joined = models.DateField(auto_now_add=True, blank=True)
     profile_pic = models.ImageField(upload_to='images/profile_pic/', blank=True)
     contact_email = models.EmailField(max_length=100, blank=True)
 
@@ -76,7 +76,6 @@ class UserProject(models.Model):
         return cls.objects.order_by('?').first()
 
 
-
 class ProjectRating(models.Model):
     """
     Project Rating model
@@ -97,6 +96,8 @@ class ProjectRating(models.Model):
     usability_average = models.FloatField(default=0, blank=True)
     date = models.DateTimeField(auto_now_add=True, blank=True)
     rating = models.FloatField(choices=rating, default=0, blank=True)
+    total_score = models.FloatField(default=0, blank=True)
+
 
     def __str__(self):
         return f'{self.user}: {self.project}'

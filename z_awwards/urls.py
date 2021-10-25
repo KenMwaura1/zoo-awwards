@@ -20,6 +20,7 @@ urlpatterns = [
     path('project/<project>', views.single_project, name='single_project'),
     path('user_profile/<username>/projects', views.user_projects, name='user_projects'),
     path('search/', views.search_projects, name='search'),
-
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
     ]
