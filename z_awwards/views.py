@@ -5,8 +5,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from rest_framework import viewsets
+
 from z_awwards.forms import ProjectForm, RegisterForm, UpdateUserForm, UpdateUserProfileForm, ProjectRatingForm
-from z_awwards.models import UserProject, ProjectRating
+from z_awwards.models import UserProject, ProjectRating, UserProfile
+from z_awwards.serializers import UserSerializer, ProjectSerializer, ProfileSerializer
 
 
 def home(request):
@@ -159,3 +162,27 @@ def search_projects(request):
         else:
             message = 'Please enter a search term'
         return render(request, 'z_awwards/search_projects.html', {'message': message})
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows profiles to be viewed
+    """
+    queryset = UserProfile.objects.all().order_by('-date_joined')
+    serializer_class = ProfileSerializer
+
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows projects to be viewed
+    """
+    queryset = UserProject.objects.all().order_by('-date')
+    serializer_class = ProjectSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
