@@ -18,7 +18,7 @@ def home(request):
     :param request:
     :return: home template
     """
-    random_project = None
+
     if request.method == "POST":
         form = ProjectForm(request.POST)
         if form.is_valid():
@@ -27,13 +27,14 @@ def home(request):
             project.save()
         else:
             form = ProjectForm()
-        try:
-            all_projects = UserProject.all_posts()
-            random_project = UserProject.random_post()
-        except UserProject.DoesNotExist:
-            all_projects = None
+    try:
+        all_projects = UserProject.all_posts()
+        random_project = UserProject.random_project()
+    except UserProject.DoesNotExist:
+        all_projects = None
+        random_project = None
 
-        return render(request, 'z_awwards/home.html', {'all_projects': all_projects, 'random_project': random_project})
+    return render(request, 'z_awwards/home.html', {'all_projects': all_projects, 'random_project': random_project})
 
 
 def register(request):

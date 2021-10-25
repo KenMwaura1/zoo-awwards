@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'z_awwards.apps.ZAwwardsConfig',
     'cloudinary',
     'crispy_forms',
-    'bootstrap5'
+    'bootstrap5',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
