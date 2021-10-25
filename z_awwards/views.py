@@ -143,3 +143,19 @@ def single_project(request, project):
     }
     return render(request, 'z_awwards/single_project.html', params)
 
+
+def search_projects(request):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        if query:
+            projects = UserProject.objects.filter(title__icontains=query)
+            message = f'{len(projects)} results found for {query}'
+            params = {
+                'projects': projects,
+                'query': query,
+                'message': message,
+            }
+            return render(request, 'z_awwards/search_projects.html', params)
+        else:
+            message = 'Please enter a search term'
+        return render(request, 'z_awwards/search_projects.html', {'message': message})
