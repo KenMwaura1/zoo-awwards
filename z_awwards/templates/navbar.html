@@ -23,14 +23,26 @@
             <!-- Social Icon  -->
             <ul class="navbar-nav nav-flex-icons">
                 {% if request.user.is_authenticated %}
-                <li class="nav-item" >
-                    <a class="nav-link yellow-text h4" href="{% url 'profile' user.username %}">
-                        <i class="fab fa-instagram title blue-grey-text"></i> {{ user.username|title }}
-                    </a>
-                </li>
+                    <li class="nav-item dropdown h5 zoom">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false"> <i class="fas fa-award dark-grey-text"></i>{{ user.username|title }}
+                            <img class="rounded-circle nav-img  img-thumbnail " src="{{ user.userprofile.profile_pic.url }}" alt="" height="50" width="50">
+                        </a>
+                        <div class="dropdown-menu dropdown-success " aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item text-center" href="{% url 'profile' user.username %}">Profile</a>
+                            <hr>
+                            <a class="dropdown-item text-center" href="{% url 'edit_profile' user.username  %}"> Edit profile</a>
+                            <hr>
+                            <a href="{% url 'logout' %}" class="text-secondary text-center dropdown-item">Log Out</a>
+
+
+                        </div>
+                    </li>
                 <li class="nav-item ml-3">
                     <form class="form-inline my-2 my-md-0"  action="{% url 'search' %}" role="search">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search for user profiles" name="search_user" aria-label="Search">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search for user projects" name="q" aria-label="Search">
                         <button class="btn pink-gradient btn-rounded btn-sm font-weight-bold" type="submit" data-offset="90">Search</button>
                     </form>
                 </li>
@@ -40,6 +52,11 @@
                     <a class="btn peach-gradient btn-rounded btn-sm font-weight-bold" href="/accounts/register/" data-offset="90">Sign Up</a>
                 </li>
                 {% endif %}
+                <li class="nav-item">
+                    <button class="btn  btn-sm purple-gradient btn-rounded" id="site" data-toggle="modal" data-target=".bd-example-modal-xl">
+                        Submit your site
+                    </button>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link">
                         <i class="fab fa-facebook-f title"></i>
