@@ -61,7 +61,10 @@
                                     <div class="card-meta">
                                         <div class="by">
                                             <p class="card-text cya"><img src="{{project.user.profile.profile_picture.url}}"  class="nav-img mr-2" alt="">
-                                                By <strong class="cyan-text"> {{project.user.username|title}} <span style="float:right">{{project.date|date}}</span> </strong>
+                                                By
+                                                <a href="{% url 'user_projects' project.user.username %}">
+                                                    <strong class="cyan-text"> {{ project.user.username| title }}</strong> <span style="float:right">{{project.date|date}}</span>
+                                                </a>
                                             </p>
                                             from <strong class="indigo-text">{{ project.user.userprofile.location }}</strong>
                                         </div>
