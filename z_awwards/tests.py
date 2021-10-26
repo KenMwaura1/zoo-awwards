@@ -130,7 +130,6 @@ class ProjectRatingTest(TestCase):
         rating = ProjectRating.objects.all()
         self.assertTrue(len(rating) < 1)
 
-
     def test_get_user_project_rating(self):
         id =1
         self.rating.save()
