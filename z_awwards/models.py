@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from cloudinary.models import CloudinaryField
 
 
 class UserProfile(models.Model):
@@ -13,8 +14,8 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=500, blank=True, default="default bio")
     location = models.CharField(max_length=30, blank=True, default="Nairobi, KE")
     date_joined = models.DateField(auto_now_add=True, blank=True)
-    profile_pic = models.ImageField(upload_to='images/profile_pic/', blank=True, null=True,
-                                    default='images/profile_pic/default.png')
+    profile_pic = CloudinaryField('image', default="https://res.cloudinary.com/dd5ab8mp3/image/upload/v1634659738"
+                                                   "/profile_pics/default_profile_pic.jpg")
     contact_email = models.EmailField(max_length=100, blank=True)
 
     @receiver(post_save, sender=User)
@@ -38,7 +39,8 @@ class UserProject(models.Model):
     url = models.URLField(max_length=250)
     description = models.TextField(max_length=255)
     technologies = models.CharField(max_length=200, blank=True)
-    photo = models.ImageField(upload_to='images/user_post/', blank=True, null=True)
+    # photo = models.ImageField(upload_to='images/user_post/', blank=True, null=True)
+    photo = CloudinaryField('image', default="https://res.cloudinary.com/dd5ab8mp3/image/upload/v1634659738")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userposts")
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
