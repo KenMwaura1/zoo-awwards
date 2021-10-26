@@ -145,6 +145,12 @@ You should create an API so that users can access data from your application. Yo
     ```shell
   python manage.py test
     ```
+  
+## API endpoints 
+* https://zoo-awwards.herokuapp.com/api/users/ 
+* https://zoo-awwards.herokuapp.com/api/profiles/
+* https://zoo-awwards.herokuapp.com/api/projects/
+
 
 ## Technologies used
 
