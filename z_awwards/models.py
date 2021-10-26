@@ -14,6 +14,7 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=500, blank=True, default="default bio")
     location = models.CharField(max_length=30, blank=True, default="Nairobi, KE")
     date_joined = models.DateField(auto_now_add=True, blank=True)
+    # profile_pic = models.ImageField(upload_to='profile_pics', blank=True, null=True default='profile_pics/default.jpg')
     profile_pic = CloudinaryField('image', default="https://res.cloudinary.com/dd5ab8mp3/image/upload/v1634659738"
                                                    "/profile_pics/default_profile_pic.jpg")
     contact_email = models.EmailField(max_length=100, blank=True)
