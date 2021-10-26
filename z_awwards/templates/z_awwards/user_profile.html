@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="container zoom" style="margin-top:10%">
+        <img class="rounded-circle img-circle img-thumbnail d-block mx-auto" src="{{ user_profile.userprofile.profile_pic.url }}" alt="" height="150" width="150">
+        <h5 class="text-center mt-3 h5 indigo-text">{{user_profile.username| title}}</h5>
+        <p class="text-center h6 cyan-text"> {{user_profile.userprofile.contact_email}}</p>
+    </div>
+{% endblock %}
