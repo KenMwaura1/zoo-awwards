@@ -20,13 +20,14 @@ def home(request):
     """
 
     if request.method == "POST":
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
             project.user = request.user
+            print(form.cleaned_data)
             project.save()
-        else:
-            form = ProjectForm()
+    else:
+        form = ProjectForm()
     try:
         all_projects = UserProject.all_posts()
         random_project = UserProject.random_project()
@@ -34,7 +35,8 @@ def home(request):
         all_projects = None
         random_project = None
 
-    return render(request, 'z_awwards/home.html', {'all_projects': all_projects, 'random_project': random_project})
+    return render(request, 'z_awwards/home.html', {'all_projects': all_projects, 'random_project': random_project,
+                                                   'form': form})
 
 
 def register(request):
@@ -67,6 +69,7 @@ def user_profile(request, username):
     if request.user == user_profile:
         return redirect('profile', username=request.user.username)
     params = {'user_profile': user_profile}
+    print(user_profile.userprofile.contact_email)
     return render(request, 'z_awwards/user_profile.html', params)
 
 
@@ -83,7 +86,8 @@ def user_projects(request, username):
         return redirect('profile', username=request.user.username)
     params = {'user_profile': user_profile}
     user_projects = UserProject.objects.filter(user=user_profile)
-    return render(request, 'z_awwards/user_projects.html', {'user_projects': user_projects, 'user_profile': user_profile})
+    return render(request, 'z_awwards/user_projects.html',
+                  {'user_projects': user_projects, 'user_profile': user_profile})
 
 
 @login_required(login_url='/login/')
@@ -114,8 +118,8 @@ def single_project(request, project):
     :return:
     """
     project = UserProject.objects.get(title=project)
-    project_ratings = ProjectRating.objects.filter(user=request.user, project=project).first()
-    rating_status = project_ratings is not None
+    ratings = ProjectRating.objects.filter(user=request.user, project=project).first()
+    rating_status = ratings is not None
     if request.method == "POST":
         form = ProjectRatingForm(request.POST)
         if form.is_valid():
@@ -123,7 +127,7 @@ def single_project(request, project):
             rating.user = request.user
             rating.project = project
             rating.save()
-            project_ratings = ProjectRating.objects.filter(project=project).first()
+            project_ratings = ProjectRating.objects.filter(project=project)
             design_score = [d.design for d in project_ratings]
             design_average = sum(design_score) / len(design_score)
             usability_score = [u.usability for u in project_ratings]
