@@ -3,6 +3,33 @@ A Django application like Awwards (It doesn't necessarily have to be exactly the
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
+![logo](static/images/Zoo-Awwards.gif)
+
+The application will allow a user to post a project he/she has created and get it reviewed by his/her peers.
+
+A project can be rated based on 3 different criteria
+
+* Design
+* Usability
+* Content
+* These criteria can be reviewed on a scale of 1-10 and the average score is taken.
+
+1. User stories
+As a user, I would like to:
+
+* View posted projects and their details
+* Post a project to be rated/reviewed
+* Rate/ review other users' projects
+* Search for projects
+* View projects overall score
+* View my profile page
+
+2. API Endpoints
+You should create an API so that users can access data from your application. You can create two API endpoints:
+
+* Profile - This endpoint should return all the user profiles with information such as the username, bio, projects of the user and profile picture
+* Projects- This endpoint should return information pertaining to all the projects posted in your application.
+
 
 ## Live Site
 
