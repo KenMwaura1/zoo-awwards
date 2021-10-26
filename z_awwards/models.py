@@ -15,8 +15,7 @@ class UserProfile(models.Model):
     location = models.CharField(max_length=30, blank=True, default="Nairobi, KE")
     date_joined = models.DateField(auto_now_add=True, blank=True)
     # profile_pic = models.ImageField(upload_to='profile_pics', blank=True, null=True default='profile_pics/default.jpg')
-    profile_pic = CloudinaryField('image', default="https://res.cloudinary.com/dd5ab8mp3/image/upload/v1634659738"
-                                                   "/profile_pics/default_profile_pic.jpg")
+    profile_pic = CloudinaryField('image', default="https://res.cloudinary.com/dd5ab8mp3/image/upload/v1634660213/image/upload/v1/images/profile/user.jpg")
     contact_email = models.EmailField(max_length=100, blank=True)
 
     @receiver(post_save, sender=User)
@@ -41,7 +40,7 @@ class UserProject(models.Model):
     description = models.TextField(max_length=255)
     technologies = models.CharField(max_length=200, blank=True)
     # photo = models.ImageField(upload_to='images/user_post/', blank=True, null=True)
-    photo = CloudinaryField('image', default="https://res.cloudinary.com/dd5ab8mp3/image/upload/v1634659738")
+    photo = CloudinaryField('image', default="https://res.cloudinary.com/dd5ab8mp3/image/upload/v1634660213/image/upload/v1/images/profile/user.jpg")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userposts")
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
