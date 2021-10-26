@@ -58,9 +58,9 @@
                                     <p>{{ project.description }}</p>
                                 </div>
                                 <div class="card-footer">
-                                    <div class="card-meta">
+                                    <div class="card-meta zoom">
                                         <div class="by">
-                                            <p class="card-text cya"><img src="{{project.user.profile.profile_picture.url}}"  class="nav-img mr-2" alt="">
+                                            <p class="card-text cyan-text "><img class="rounded-circle nav-img  img-thumbnail" src="{{ user.userprofile.profile_pic.url }}" alt="" height="50" width="50">
                                                 By
                                                 <a href="{% url 'user_projects' project.user.username %}">
                                                     <strong class="cyan-text"> {{ project.user.username| title }}</strong> <span style="float:right">{{project.date|date}}</span>
