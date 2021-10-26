@@ -3,14 +3,13 @@ from django.test import TestCase
 
 
 # Create your tests here.
+from z_awwards.models import UserProject
+
+
 class TestZooAwwards(TestCase):
     """
     Test the zoo_awwards app
     """
-
-    def test_home_page_status_code(self):
-        response = self.client.get('/')
-        self.assertEquals(response.status_code, 200)
 
     def test_login_page_status_code(self):
         response = self.client.get('/accounts/login/')
@@ -27,7 +26,6 @@ class TestUserProfile(TestCase):
         self.user.save()
 
     def tearDown(self):
-        self.user.delete()
         self.user = None
 
     def test_instance(self):
@@ -74,3 +72,32 @@ class TestUserProfile(TestCase):
         self.assertEquals(users[0].password, 'testpwsd123')
 
 
+class UserProjectTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(id=1, username='zken')
+        self.user_project = UserProject.objects.create(id=1, title='test project',
+                                                       photo='"https://res.cloudinary.com/dd5ab8mp3/image/upload/v1634659738',
+                                                       description='desc', user=self.user, url='http://test.com')
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.user_project, UserProject))
+
+    def test_save_user_project(self):
+        self.user_project.save_post()
+        user_project = UserProject.objects.all()
+        self.assertTrue(len(user_project) > 0)
+
+    def test_get_user_projects(self):
+        self.user_project.save()
+        user_projects = UserProject.all_posts()
+        self.assertTrue(len(user_projects) > 0)
+
+    def test_search_user_project(self):
+        self.user_project.save()
+        user_project = UserProject.search_project('test')
+        self.assertTrue(len(user_project) > 0)
+
+    def test_delete_user_project(self):
+        self.user_project.delete_post()
+        user_project = UserProject.search_project('test')
+        self.assertTrue(len(user_project) < 1)
