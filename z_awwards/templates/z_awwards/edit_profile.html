@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br />
+    <div class="container" style="margin-top:10%;">
+        <p style="margin-top:10%" class="h5">User_Profile --> Settings --> Profile settings</p>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card card-cascade narrower white-text" style="margin-top:5%; padding:20px">
+                    <div class="card-body view view-cascade gradient-card-header peach-gradient">
+                        <h5 class="card-title h2 "><a>Update Your Profile</a></h5>
+                        <div class="card-text h4 white-text">
+                            <form action="" method="post" enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                {{ user_form|crispy }}
+                                {{ profile_form|crispy }}
+                                <input type="submit" class="btn btn-md   btn-rounded pink-gradient" value="Save"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+{% endblock %}
