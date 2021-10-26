@@ -17,6 +17,7 @@ urlpatterns = [
     path('profile/<username>/', views.profile, name='profile'),
     path('user_profile/<username>/', views.user_profile, name='user_profile'),
     path('user_profile/<username>/settings', views.edit_profile, name='edit_profile'),
+    path('user_profile/<username>/projects', views.user_projects, name='user_projects'),
     path('project/<project>', views.single_project, name='single_project'),
     path('user_profile/<username>/projects', views.user_projects, name='user_projects'),
     path('search/', views.search_projects, name='search'),
