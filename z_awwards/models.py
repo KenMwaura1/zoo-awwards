@@ -9,11 +9,12 @@ class UserProfile(models.Model):
     User Profile model
     """
     user = models.OneToOneField(User, related_name="userprofile", on_delete=models.CASCADE)
-    username = models.TextField(max_length=150)
+    username = models.CharField(max_length=50, blank=True, null=True)
     bio = models.TextField(max_length=500, blank=True, default="default bio")
     location = models.CharField(max_length=30, blank=True, default="Nairobi, KE")
     date_joined = models.DateField(auto_now_add=True, blank=True)
-    profile_pic = models.ImageField(upload_to='images/profile_pic/', blank=True)
+    profile_pic = models.ImageField(upload_to='images/profile_pic/', blank=True, null=True,
+                                    default='images/profile_pic/default.png')
     contact_email = models.EmailField(max_length=100, blank=True)
 
     @receiver(post_save, sender=User)
@@ -37,7 +38,7 @@ class UserProject(models.Model):
     url = models.URLField(max_length=250)
     description = models.TextField(max_length=255)
     technologies = models.CharField(max_length=200, blank=True)
-    photo = models.ImageField(upload_to='images/user_post/', blank=True)
+    photo = models.ImageField(upload_to='images/user_post/', blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userposts")
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
@@ -97,7 +98,6 @@ class ProjectRating(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True)
     rating = models.FloatField(choices=rating, default=0, blank=True)
     total_score = models.FloatField(default=0, blank=True)
-
 
     def __str__(self):
         return f'{self.user}: {self.project}'
