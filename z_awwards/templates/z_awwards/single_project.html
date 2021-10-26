@@ -44,7 +44,7 @@
                 </p>
                 <p>{{ project.description }}</p>
                 <hr>
-                <p class="card-text "><img src="{{project.user.userprofile.profile_picture.url}}" class="nav-img mr-2 zoom" alt="">
+                <p class="card-text "><img class="rounded-circle nav-img  img-thumbnail" src="{{ user.userprofile.profile_pic.url }}" alt="" height="50" width="50">
                     By {{project.user.username|title}} <span style="float:right">{{project.date | date}}</span>
                 </p>
                 <div class="row">
